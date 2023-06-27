@@ -15,8 +15,14 @@ public partial class BaseCharacterController : CharacterBody2D
 	
 	// === AI === //
 	protected Blackboard _Blackboard;
-	
-	
+
+	protected void CreateBlackboard()
+	{
+		_Blackboard = new Blackboard();
+		_Blackboard.SetValueAsNode("Self", this);
+		_Blackboard.SetValueAsBool("HasMoveToLocation", false);
+		_Blackboard.SetValueAsVector2("MoveToLocation", Vector2.Zero);
+	}
 	
 	
 	public override void _PhysicsProcess(double delta)
