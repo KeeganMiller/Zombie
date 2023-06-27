@@ -3,4 +3,13 @@
     <TargetFramework>net6.0</TargetFramework>
     <EnableDynamicLoading>true</EnableDynamicLoading>
   </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="GridSystem\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Remove="GridSystem\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Scripts\Character\" />
+  </ItemGroup>
 </Project>
