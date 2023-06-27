@@ -17,7 +17,7 @@ _MoveSpeed = 250.0
 
 [node name="Character" parent="." instance=ExtResource("3_huk0k")]
 z_index = 100
-position = Vector2(1090, 598)
+position = Vector2(834, 208)
 
 [node name="Position" type="Node2D" parent="."]
 position = Vector2(1033, 554)
