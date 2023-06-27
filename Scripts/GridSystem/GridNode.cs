@@ -29,4 +29,9 @@ public class GridNode
 		_CellIndexX = cellX;
 		_CellIndexY = cellY;
 	}
+
+	public override string ToString()
+	{
+		return $"X: {CellIndexX}, Y: {CellIndexY}";
+	}
 }
