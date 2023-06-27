@@ -76,4 +76,24 @@ public partial class GridController : Node2D
             }
         }
     }
+
+    public GridNode GetNodeFromPosition(Vector2 position)
+    {
+        for(int y = 0; y < _Grid.GetLength(1); ++y)
+        {
+            for (int x = 0; x < _Grid.GetLength(1); ++x)
+            {
+                Vector2 nodePosition = _Grid[x, y].CellPosition;
+                if (position.X > nodePosition.X && position.X < (nodePosition.X + CellSize))
+                {
+                    if (position.Y > nodePosition.Y && position.Y < (nodePosition.Y + CellSize))
+                    {
+                        return _Grid[x, y];
+                    }
+                }
+            }
+        }
+
+        return null;
+    }
 }
