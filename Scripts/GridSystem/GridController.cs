@@ -1,5 +1,6 @@
 ﻿using Godot;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 
 public partial class GridController : Node2D
@@ -16,6 +17,9 @@ public partial class GridController : Node2D
     public int GridSizeY => _GridSizeY;
     public float CellSize => _CellSize;
     
+    // === PATH FINDING === //
+    private AStar _PathfindingController = null;
+    
     // === DEBUG SETTINGS === //
     [Export] private bool _ShowGrid = true;
     [Export] private Color _GridColor;
@@ -24,6 +28,8 @@ public partial class GridController : Node2D
     {
         base._Ready();
         CreateGrid();
+        _PathfindingController = new AStar(this);
+        
     }
 
     private void CreateGrid()
@@ -55,6 +61,15 @@ public partial class GridController : Node2D
         if(_ShowGrid)
             QueueRedraw();
         
+    }
+
+    public override void _Process(double delta)
+    {
+        base._Process(delta);
+        Vector2 mousePos = GetGlobalMousePosition();
+        GridNode node = GetNodeFromPosition(mousePos);
+        if(node != null)
+            GD.Print($"x:{node.CellIndexX}, y:{node.CellIndexY}");
     }
 
     public override void _Draw()

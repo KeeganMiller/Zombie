@@ -15,6 +15,7 @@ public class GridNode
 	
 	
 	// === PATHFINDING === //
+	public GridNode Parent;
 	public bool IsWalkable = true;					// If this node can be walked on
 	public int GCost;
 	public int HCost;
