@@ -17,8 +17,9 @@ public partial class GridController : Node2D
     public int GridSizeY => _GridSizeY;
     public float CellSize => _CellSize;
     
-    // === PATH FINDING === //
-    private AStar _PathfindingController = null;
+    // === TERRAIN SPAWNING === //
+    private TerrainDatabase _TerrainDB;
+    
     
     // === DEBUG SETTINGS === //
     [Export] private bool _ShowGrid = true;
@@ -27,9 +28,9 @@ public partial class GridController : Node2D
     public override void _Ready()
     {
         base._Ready();
+        _TerrainDB = GetNode<TerrainDatabase>("/root/Ground");
         CreateGrid();
-        _PathfindingController = new AStar(this);
-        
+        GetNode<AStar>("/root/AStar").Initialize(this);
     }
 
     private void CreateGrid()
@@ -49,6 +50,18 @@ public partial class GridController : Node2D
             for (int x = 0; x < _Grid.GetLength(0); ++x)
             {
                 _Grid[x, y] = new GridNode(this, currentPos, x, y);             // Create a new grid node
+                // Validate the terrain database
+                if (_TerrainDB != null)
+                {
+                    Sprite2D sprite = _TerrainDB.GetSprite("Ground_1");             // Get reference to a sprite
+                    // Validate the sprite and add to the world
+                    if (sprite != null)
+                    {
+                        sprite.Position = currentPos;
+                        this.AddChild(sprite);
+                    }
+                }
+                // Update position
                 float posX = currentPos.X + _CellSize;                  // Get the next x position
                 currentPos = new Vector2(posX, currentPos.Y);           // Set the next position
             }
@@ -66,10 +79,7 @@ public partial class GridController : Node2D
     public override void _Process(double delta)
     {
         base._Process(delta);
-        Vector2 mousePos = GetGlobalMousePosition();
-        GridNode node = GetNodeFromPosition(mousePos);
-        if(node != null)
-            GD.Print($"x:{node.CellIndexX}, y:{node.CellIndexY}");
+
     }
 
     public override void _Draw()
