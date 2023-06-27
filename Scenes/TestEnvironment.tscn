@@ -1,14 +1,23 @@
-[gd_scene load_steps=3 format=3 uid="uid://cs830tksy58q3"]
+[gd_scene load_steps=4 format=3 uid="uid://cs830tksy58q3"]
 
 [ext_resource type="Script" path="res://Scripts/GridSystem/GridController.cs" id="1_gdjpn"]
 [ext_resource type="PackedScene" uid="uid://c78xdlfgq8qao" path="res://Prefabs/Camera.tscn" id="2_mykf8"]
+[ext_resource type="PackedScene" uid="uid://eanmogiumt0h" path="res://Prefabs/Character.tscn" id="3_huk0k"]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_gdjpn")
 _GridSizeX = 50
 _GridSizeY = 50
-_CellSize = 16.0
+_CellSize = 62.0
 _GridColor = Color(0.152941, 0.337255, 1, 1)
 
 [node name="Camera" parent="." instance=ExtResource("2_mykf8")]
-_MoveSpeed = 100.0
+position = Vector2(579, 328)
+_MoveSpeed = 250.0
+
+[node name="Character" parent="." instance=ExtResource("3_huk0k")]
+z_index = 100
+position = Vector2(17, 48)
+
+[node name="Position" type="Node2D" parent="."]
+position = Vector2(1033, 554)
