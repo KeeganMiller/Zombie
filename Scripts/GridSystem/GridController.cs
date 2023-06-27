@@ -30,7 +30,9 @@ public partial class GridController : Node2D
         base._Ready();
         _TerrainDB = GetNode<TerrainDatabase>("/root/Ground");
         CreateGrid();
+        GetNode<GameController>("/root/GameController").Grid = this;
         GetNode<AStar>("/root/AStar").Initialize(this);
+        
     }
 
     private void CreateGrid()
@@ -70,12 +72,31 @@ public partial class GridController : Node2D
             // Set the current position, resetting start poiint
             currentPos = new Vector2(startPointX, posY);
         }
-        
+
+        for (int i = 0; i < _Grid.GetLength(1); ++i)
+            for(int j = 0; j < _Grid.GetLength(0); ++j)
+                AddNeighbors(_Grid[j, i]);
+
         if(_ShowGrid)
             QueueRedraw();
         
     }
 
+    private void AddNeighbors(GridNode node)
+    {
+        int x = node.CellIndexX;
+        int y = node.CellIndexY;
+        
+        if(x > 0)
+            node._Neighbors.Add(_Grid[x - 1, y]);
+        if(x < (GridSizeX - 1))
+            node._Neighbors.Add(_Grid[x + 1, y]);
+        if(y > 0)
+            node._Neighbors.Add(_Grid[x, (y - 1)]);
+        if(y < (_GridSizeY - 1))
+            node._Neighbors.Add(_Grid[x, y + 1]);
+    }
+    
     public override void _Process(double delta)
     {
         base._Process(delta);

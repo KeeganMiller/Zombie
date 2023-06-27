@@ -16,10 +16,18 @@ public partial class BaseCharacterController : CharacterBody2D
 	
 	// === AI === //
 	protected Blackboard _Blackboard;
+	protected NavAgent _Agent;
+	
+	// === MOVEMENT SETTINGS === //
+	[Export] protected float _GeneralMovementSpeed = 100f;
 
 	public override void _Ready()
 	{
 		base._Ready();
+		CreateBlackboard();
+		_Agent = GetNode<NavAgent>("Agent");
+		
+		Callable.From(ActorSetup).CallDeferred();
 	}
 
 	protected void CreateBlackboard()
@@ -33,8 +41,26 @@ public partial class BaseCharacterController : CharacterBody2D
 	
 	public override void _PhysicsProcess(double delta)
 	{
+		base._PhysicsProcess(delta);
+		if (!_Agent.HasPath || _Agent.HasReachPath)
+			return;
+
+		Vector2 currentPos = this.GlobalPosition;
+		Vector2 nextPathPoint = _Agent.GetNextPathPoint();
+
+		Vector2 movementVelocity = (nextPathPoint - currentPos).Normalized();
+		movementVelocity *= _GeneralMovementSpeed;
+		this.Velocity = movementVelocity;
 		
+		MoveAndSlide();
 	}
 
 	public Blackboard GetBlackboard() => _Blackboard;
+
+	protected virtual async void ActorSetup()
+	{
+		await ToSignal(GetTree(), SceneTree.SignalName.PhysicsFrame);
+		
+		_Agent.SetTargetLocation(new Vector2(530, 374));
+	}
 }

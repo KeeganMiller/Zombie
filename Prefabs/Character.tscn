@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://eanmogiumt0h"]
+[gd_scene load_steps=5 format=3 uid="uid://eanmogiumt0h"]
 
 [ext_resource type="Script" path="res://Scripts/Character/BaseCharacterController.cs" id="1_ftb4f"]
 [ext_resource type="Texture2D" uid="uid://syloc6wqbd6h" path="res://icon.svg" id="1_olqh6"]
+[ext_resource type="Script" path="res://Scripts/AI/NavAgent.cs" id="3_gakqx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6wpwr"]
 size = Vector2(117, 119)
@@ -15,3 +16,6 @@ texture = ExtResource("1_olqh6")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, -0.5)
 shape = SubResource("RectangleShape2D_6wpwr")
+
+[node name="Agent" type="Node2D" parent="."]
+script = ExtResource("3_gakqx")
