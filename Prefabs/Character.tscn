@@ -8,6 +8,7 @@
 size = Vector2(117, 119)
 
 [node name="Character" type="CharacterBody2D"]
+scale = Vector2(0.3, 0.3)
 script = ExtResource("1_ftb4f")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
