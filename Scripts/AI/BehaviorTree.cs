@@ -20,6 +20,9 @@ public abstract class BehaviorTree
     {
         if (Paused || _BlackboardRef == null)
             return;
+
+        if (_RootTask != null)
+            _RootTask.RunTask(delta);
     }
 
     protected abstract Task CreateTree();
