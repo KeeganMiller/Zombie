@@ -9,7 +9,4 @@
   <ItemGroup>
     <EmbeddedResource Remove="GridSystem\**" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Scripts\AI\Checks\" />
-  </ItemGroup>
 </Project>
