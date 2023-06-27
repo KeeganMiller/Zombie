@@ -21,7 +21,7 @@ public class MoveToLocationCheck : Task
         if (bb != null)
         {
             if (bb.GetValueAsBool("HasMoveToLocation") && bb.GetValueAsVector2("MoveToLocation") != Vector2.Zero)
-                return ETaskState.RUNNING;
+                return ETaskState.SUCCESS;
         }
 
         return ETaskState.FAILURE;
