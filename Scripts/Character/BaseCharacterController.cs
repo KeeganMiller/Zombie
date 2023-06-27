@@ -17,7 +17,9 @@ public partial class BaseCharacterController : CharacterBody2D
 	// === AI === //
 	protected Blackboard _Blackboard;
 	protected NavAgent _Agent;
+	protected BehaviorTree _BTree;
 	public NavAgent Agent => _Agent;
+	public BehaviorTree BTree => _BTree;
 	
 	// === MOVEMENT SETTINGS === //
 	[Export] protected float _GeneralMovementSpeed = 100f;
@@ -27,6 +29,11 @@ public partial class BaseCharacterController : CharacterBody2D
 		base._Ready();
 		CreateBlackboard();
 		_Agent = GetNode<NavAgent>("Agent");
+		_BTree = new SettlerTree(_Blackboard);
+		
+		// DEBUG //
+		_Blackboard.SetValueAsVector2("MoveToLocation", new Vector2(530, 374));
+		_Blackboard.SetValueAsBool("HasMoveToLocation", true);
 		
 		Callable.From(ActorSetup).CallDeferred();
 	}
@@ -37,6 +44,13 @@ public partial class BaseCharacterController : CharacterBody2D
 		_Blackboard.SetValueAsNode("Self", this);
 		_Blackboard.SetValueAsBool("HasMoveToLocation", false);
 		_Blackboard.SetValueAsVector2("MoveToLocation", Vector2.Zero);
+	}
+
+	public override void _Process(double delta)
+	{
+		base._Process(delta);
+		if(_BTree != null)
+			_BTree.Update((float)delta);
 	}
 	
 	
@@ -61,7 +75,5 @@ public partial class BaseCharacterController : CharacterBody2D
 	protected virtual async void ActorSetup()
 	{
 		await ToSignal(GetTree(), SceneTree.SignalName.PhysicsFrame);
-		
-		_Agent.SetTargetLocation(new Vector2(530, 374));
 	}
 }
