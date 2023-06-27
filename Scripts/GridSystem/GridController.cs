@@ -5,11 +5,16 @@ using System.Collections.Generic;
 public partial class GridController : Node2D
 {
     private GridNode[,] _Grid;
+    public GridNode[,] Grid => _Grid;
     
     // === GRID PROPERTIES === //
     [Export] private int _GridSizeX;
     [Export] private int _GridSizeY;
     [Export] private float _CellSize;
+
+    public int GridSizeX => _GridSizeX;
+    public int GridSizeY => _GridSizeY;
+    public float CellSize => _CellSize;
     
     // === DEBUG SETTINGS === //
     [Export] private bool _ShowGrid = true;
