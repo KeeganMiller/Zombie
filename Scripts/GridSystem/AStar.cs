@@ -2,18 +2,14 @@
 using System.Collections.Generic;
 using Godot;
 
-public class AStar
+public partial class AStar : Node2D
 {
     public GridController _Grid;
+    
 
-    public AStar(GridController grid)
+    public void Initialize(GridController grid)
     {
         _Grid = grid;
-        Initialize();
-    }
-
-    public void Initialize()
-    {
         for (int x = 0; x < _Grid.GridSizeX; ++x)
         {
             for (int y = 0; y < _Grid.GridSizeY; ++y)
@@ -79,7 +75,7 @@ public class AStar
                     continue;
 
                 int newGCost = current.GCost + CalculateDistance(current, neighbor);
-                if (newGCost < neighbor.GCost || openSet.Contains(neighbor))
+                if (newGCost < neighbor.GCost || !openSet.Contains(neighbor))
                 {
                     neighbor.GCost = newGCost;
                     neighbor.HCost = CalculateDistance(neighbor, endNode);
