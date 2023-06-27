@@ -22,6 +22,17 @@ public partial class AStar : Node2D
         GridNode startNode = _Grid.GetNodeFromPosition(startPoint);
         GridNode endNode = _Grid.GetNodeFromPosition(endPoint);
 
+        // Error handling for nodes
+        if (startNode == null)
+        {
+            GD.PrintErr($"#AStar::FindPath - Start node is null StartPos: {startPoint}");
+            return new List<GridNode>();
+        } else if (endNode == null)
+        {
+            GD.PrintErr($"#AStar::FindPath - End node is null {endPoint}");
+            return new List<GridNode>();
+        }
+
         // Create open & closed sets to store nodes being process/have been process
         List<GridNode> openSet = new List<GridNode>();
         HashSet<GridNode> closedSet = new HashSet<GridNode>();
