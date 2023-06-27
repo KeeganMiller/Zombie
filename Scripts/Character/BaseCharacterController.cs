@@ -17,6 +17,7 @@ public partial class BaseCharacterController : CharacterBody2D
 	// === AI === //
 	protected Blackboard _Blackboard;
 	protected NavAgent _Agent;
+	public NavAgent Agent => _Agent;
 	
 	// === MOVEMENT SETTINGS === //
 	[Export] protected float _GeneralMovementSpeed = 100f;
