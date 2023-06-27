@@ -13,10 +13,12 @@ public partial class GridController : Node2D
     
     // === DEBUG SETTINGS === //
     [Export] private bool _ShowGrid = true;
+    [Export] private Color _GridColor;
     
     public override void _Ready()
     {
-        
+        base._Ready();
+        CreateGrid();
     }
 
     private void CreateGrid()
@@ -52,6 +54,21 @@ public partial class GridController : Node2D
 
     public override void _Draw()
     {
-        
+        base._Ready();
+        if (_Grid != null)
+        {
+            for (int y = 0; y < _Grid.GetLength(1); ++y)
+            {
+                for (int x = 0; x < _Grid.GetLength(0); ++x)
+                {
+                    Vector2 startPos = _Grid[x, y].CellPosition;
+                    Vector2 endPosX = new Vector2((startPos.X - _CellSize), startPos.Y);
+                    Vector2 endPosY = new Vector2(startPos.X, (startPos.Y - _CellSize));
+                    
+                    DrawLine(startPos, endPosX, _GridColor, 2f);
+                    DrawLine(startPos, endPosY, _GridColor, 2f);
+                }
+            }
+        }
     }
 }
