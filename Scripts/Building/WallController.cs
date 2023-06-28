@@ -67,4 +67,15 @@ public partial class WallController : BuildingController
         foreach (var wall in _WallObjects)
             wall.Visible = false;
     }
+
+    public bool GetWalkable()
+    {
+        if (_DoorIndex == -1)
+            return _IsWalkable;
+
+        if (_WallObjectIndex == _DoorIndex)
+            return true;
+
+        return _IsWalkable;
+    }
 }
