@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 GameController="*res://Scripts/Controller/GameController.cs"
 AStar="*res://Scripts/GridSystem/AStar.cs"
 Ground="*res://Prefabs/ground.tscn"
+NameDatabase="*res://Scripts/Controller/NameDatabase.cs"
 
 [dotnet]
 
