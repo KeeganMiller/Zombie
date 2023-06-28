@@ -7,7 +7,7 @@ public partial class WallController : BuildingController
     private List<Sprite2D> _WallObjects = new List<Sprite2D>();                 // List of all the wall sprites
     public int _WallObjectIndex = 0;                // Which wall is currently showing
 
-    [Export] private bool _IsWalkable = false;          // If the tile can be walked on
+    [Export] private int _DoorIndex = -1;
 
     public override void _Ready()
     {
