@@ -24,10 +24,6 @@ public partial class BuildModeController : Node2D
             GridNode node = GetNode<GameController>("/root/GameController")?.Grid.GetNodeFromPosition(mousePos);
             SetPlacingObjectPosition(node);
         }
-
-        if (Input.IsActionJustPressed("Rotate"))
-            _Rotated = !_Rotated;
-
     }
 
     private void SetPlacingObjectPosition(GridNode node)
@@ -40,11 +36,17 @@ public partial class BuildModeController : Node2D
 
         if (_PlacingObject is WallController wall)
         {
-            if(_Rotated)
-                wall.ShowWall("Side");
-            else 
-                wall.ShowWall("Straight");
+            if (Input.IsActionJustPressed("CycleBuildingForward"))
+                wall.CycleWallForward();
+
+            if(Input.IsActionJustPressed("CycleBuildingBackwards"))
+                wall.CycleWallBackwards();
         }
+    }
+
+    private void PlaceBuilding()
+    {
+        
     }
 
     public void SetPlacingObject(PackedScene node)
