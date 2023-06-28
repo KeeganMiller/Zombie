@@ -8,7 +8,8 @@
 script = ExtResource("1_gdjpn")
 _GridSizeX = 50
 _GridSizeY = 50
-_CellSize = 62.0
+_CellSize = 31.0
+_ShowGrid = false
 _GridColor = Color(0.152941, 0.337255, 1, 1)
 
 [node name="Camera" parent="." instance=ExtResource("2_mykf8")]

@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" path="res://Scripts/Controller/TerrainDatabase.cs" id="1_4bg2n"]
 [ext_resource type="PackedScene" uid="uid://c5fvlhfvudy1n" path="res://Prefabs/GroundTile.tscn" id="2_85bk1"]
-[ext_resource type="Texture2D" uid="uid://c73bmvu0eaj0t" path="res://Sprites/GroundTextures/Grass 2.png" id="2_ysv04"]
+[ext_resource type="Texture2D" uid="uid://bqndgpstel5lt" path="res://Sprites/GroundTextures/Ground_1.png" id="3_p7mqn"]
 
 [node name="Ground" type="Node2D"]
 script = ExtResource("1_4bg2n")
 GroundTile = ExtResource("2_85bk1")
-_Ground_1 = ExtResource("2_ysv04")
+_Ground_1 = ExtResource("3_p7mqn")

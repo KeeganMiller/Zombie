@@ -52,6 +52,7 @@ public partial class GridController : Node2D
             for (int x = 0; x < _Grid.GetLength(0); ++x)
             {
                 _Grid[x, y] = new GridNode(this, currentPos, x, y);             // Create a new grid node
+                
                 // Validate the terrain database
                 if (_TerrainDB != null)
                 {
@@ -63,6 +64,7 @@ public partial class GridController : Node2D
                         this.AddChild(sprite);
                     }
                 }
+                
                 // Update position
                 float posX = currentPos.X + _CellSize;                  // Get the next x position
                 currentPos = new Vector2(posX, currentPos.Y);           // Set the next position
