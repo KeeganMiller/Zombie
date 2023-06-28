@@ -1,0 +1,4 @@
+[gd_scene format=3 uid="uid://g1sqrg8lqehp"]
+
+[node name="Wall" type="Sprite2D"]
+scale = Vector2(0.031, 0.031)
