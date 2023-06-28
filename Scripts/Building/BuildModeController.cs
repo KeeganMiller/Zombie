@@ -9,6 +9,7 @@ public partial class BuildModeController : Node2D
 
     [ExportGroup("Walls")]
     [Export] private Node2D _PlacingObject;
+    private PackedScene _LastPlacedObject;
     private bool _Rotated = false;
 
     public override void _Process(double delta)
@@ -29,7 +30,7 @@ public partial class BuildModeController : Node2D
     private void SetPlacingObjectPosition(GridNode node)
     {
         // Validate the placing object
-        if (_PlacingObject == null)
+        if (_PlacingObject == null || node == null)
             return;
 
         _PlacingObject.Position = node.CellPosition;
@@ -41,23 +42,28 @@ public partial class BuildModeController : Node2D
 
             if(Input.IsActionJustPressed("CycleBuildingBackwards"))
                 wall.CycleWallBackwards();
+
+            if (Input.IsMouseButtonPressed(MouseButton.Left))
+            {
+                node.SetPlacedObject(_PlacingObject, wall.GetWalkable());
+                if (_LastPlacedObject != null)
+                    SetPlacingObject(_LastPlacedObject, true);
+            }
         }
     }
 
-    private void PlaceBuilding()
-    {
-        
-    }
 
-    public void SetPlacingObject(PackedScene node)
+    public void SetPlacingObject(PackedScene node, bool repeatBuilding = false)
     {
         Node2D spawning = node.Instantiate<Node2D>();
         if (spawning != null)
         {
             GetNode<GameController>("/root/GameController").Grid.AddChild(spawning);
             _PlacingObject = spawning;
+            if (repeatBuilding)
+                _LastPlacedObject = node;
+            else
+                _LastPlacedObject = null;
         }
-            
-
     }
 }
