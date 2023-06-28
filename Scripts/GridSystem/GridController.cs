@@ -62,6 +62,7 @@ public partial class GridController : Node2D
                     {
                         sprite.Position = currentPos;
                         this.AddChild(sprite);
+                        _Grid[x, y].SetGroundTile(sprite);
                     }
                 }
                 
