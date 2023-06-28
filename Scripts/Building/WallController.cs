@@ -2,7 +2,6 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public partial class WallController : Node2D
 public partial class WallController : BuildingController
 {
     private List<Sprite2D> _WallObjects = new List<Sprite2D>();                 // List of all the wall sprites
