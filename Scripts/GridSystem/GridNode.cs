@@ -11,6 +11,9 @@ public class GridNode
 	public int CellIndexX => _CellIndexX;
 	private int _CellIndexY;							// Reference to the cell Y index
 	public int CellIndexY => _CellIndexY;
+
+	private Node2D _GroundTile;
+	private Node2D _PlacedObject;
 	
 	
 	
@@ -33,5 +36,17 @@ public class GridNode
 	public override string ToString()
 	{
 		return $"X: {CellIndexX}, Y: {CellIndexY}";
+	}
+
+	public void SetGroundTile(Node2D groundTile, bool walkable = true)
+	{
+		IsWalkable = walkable;
+		_GroundTile = groundTile;
+	}
+
+	public void SetPlacedObject(Node2D obj, bool walkable = false)
+	{
+		_PlacedObject = obj;
+		IsWalkable = walkable;
 	}
 }
