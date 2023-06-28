@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://dieimsc1pd4cd"]
+
+[ext_resource type="Script" path="res://Scripts/UI/HUDController.cs" id="1_deyf2"]
+[ext_resource type="Texture2D" uid="uid://csj3kmvcqrufw" path="res://Sprites/UI/BuildIIcon.png" id="1_p4tyd"]
+[ext_resource type="Texture2D" uid="uid://dmg2xtdd4mdp7" path="res://Sprites/UI/PlayIcon.png" id="2_sm1p8"]
+
+[node name="CanvasLayer" type="CanvasLayer"]
+script = ExtResource("1_deyf2")
+_PlayTexture = ExtResource("2_sm1p8")
+_BuildTexture = ExtResource("1_p4tyd")
+_TogglePath = NodePath("TextureButton")
+
+[node name="TextureButton" type="TextureButton" parent="."]
+offset_left = 3.0
+offset_top = 4.0
+offset_right = 51.0
+offset_bottom = 52.0
+texture_normal = ExtResource("1_p4tyd")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+offset_left = 4.0
+offset_top = 498.0
+offset_right = 1143.0
+offset_bottom = 645.0
+
+[connection signal="pressed" from="TextureButton" to="." method="OnModeTogglePressed"]
