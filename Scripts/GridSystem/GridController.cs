@@ -9,6 +9,7 @@ public partial class GridController : Node2D
     public GridNode[,] Grid => _Grid;
     
     // === GRID PROPERTIES === //
+    [ExportGroup("Grid Properties")]
     [Export] private int _GridSizeX;
     [Export] private int _GridSizeY;
     [Export] private float _CellSize;
@@ -22,9 +23,11 @@ public partial class GridController : Node2D
     
     
     // === DEBUG SETTINGS === //
+    [ExportGroup("Debug")]
     [Export] private bool _ShowGrid = true;
     [Export] private Color _GridColor;
-    
+    [Export] private PackedScene _DebugWall;
+
     public override void _Ready()
     {
         base._Ready();
@@ -32,7 +35,7 @@ public partial class GridController : Node2D
         CreateGrid();
         GetNode<GameController>("/root/GameController").Grid = this;
         GetNode<AStar>("/root/AStar").Initialize(this);
-        
+        GetNode<BuildModeController>("/root/BuildModeController").SetPlacingObject(_DebugWall);
     }
 
     private void CreateGrid()
