@@ -12,6 +12,8 @@ public partial class BuildModeController : Node2D
     private PackedScene _LastPlacedObject;
     private bool _Rotated = false;
 
+    private bool _CanPlaceBuilding = true;
+
     public override void _Process(double delta)
     {
         base._Process(delta);
@@ -33,22 +35,33 @@ public partial class BuildModeController : Node2D
         if (_PlacingObject == null || node == null)
             return;
 
-        _PlacingObject.Position = node.CellPosition;
+        _PlacingObject.Position = node.CellPosition;                // Update the objects position
 
         if (_PlacingObject is WallController wall)
         {
+            // Cycle buiding forward on input
             if (Input.IsActionJustPressed("CycleBuildingForward"))
                 wall.CycleWallForward();
-
+            
+            // Cycle building backwards on input
             if(Input.IsActionJustPressed("CycleBuildingBackwards"))
                 wall.CycleWallBackwards();
 
-            if (Input.IsMouseButtonPressed(MouseButton.Left))
+            // On mouse click
+            if (Input.IsActionJustPressed("LeftMouseClicked"))
             {
-                node.SetPlacedObject(_PlacingObject, wall.GetWalkable());
-                if (_LastPlacedObject != null)
-                    SetPlacingObject(_LastPlacedObject, true);
+                // Check that an object hasn't already been placed their
+                if (node.PlacedObject == null)
+                {
+                    // Set the placed object
+                    node.SetPlacedObject(_PlacingObject, wall.GetWalkable());
+                    // Check if we are repeating the action
+                    if (_LastPlacedObject != null)
+                        SetPlacingObject(_LastPlacedObject, true);
+                }
             }
+            
+            
         }
     }
 
