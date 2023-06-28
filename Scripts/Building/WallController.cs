@@ -4,8 +4,10 @@ using System.Collections.Generic;
 
 public partial class WallController : Node2D
 {
-    private List<Sprite2D> _WallObjects = new List<Sprite2D>();
-    public int _WallObjectIndex = 0;
+    private List<Sprite2D> _WallObjects = new List<Sprite2D>();                 // List of all the wall sprites
+    public int _WallObjectIndex = 0;                // Which wall is currently showing
+
+    [Export] private bool _IsWalkable = false;          // If the tile can be walked on
 
     public override void _Ready()
     {
