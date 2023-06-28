@@ -14,6 +14,8 @@ public class GridNode
 
 	private Node2D _GroundTile;
 	private Node2D _PlacedObject;
+
+	public Node2D PlacedObject => _PlacedObject;
 	
 	
 	
