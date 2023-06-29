@@ -36,33 +36,6 @@ public partial class BuildModeController : Node2D
             return;
 
         _PlacingObject.Position = node.CellPosition;                // Update the objects position
-
-        if (_PlacingObject is WallController wall)
-        {
-            // Cycle buiding forward on input
-            if (Input.IsActionJustPressed("CycleBuildingForward"))
-                wall.CycleWallForward();
-            
-            // Cycle building backwards on input
-            if(Input.IsActionJustPressed("CycleBuildingBackwards"))
-                wall.CycleWallBackwards();
-
-            // On mouse click
-            if (Input.IsActionJustPressed("LeftMouseClicked"))
-            {
-                // Check that an object hasn't already been placed their
-                if (node.PlacedObject == null)
-                {
-                    // Set the placed object
-                    node.SetPlacedObject(_PlacingObject, wall.GetWalkable());
-                    // Check if we are repeating the action
-                    if (_LastPlacedObject != null)
-                        SetPlacingObject(_LastPlacedObject, true);
-                }
-            }
-            
-            
-        }
     }
 
 
