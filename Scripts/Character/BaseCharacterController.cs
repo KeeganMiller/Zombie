@@ -55,6 +55,8 @@ public partial class BaseCharacterController : CharacterBody2D
 		_Blackboard.SetValueAsNode("Self", this);
 		_Blackboard.SetValueAsBool("HasMoveToLocation", false);
 		_Blackboard.SetValueAsVector2("MoveToLocation", Vector2.Zero);
+		_Blackboard.SetValueAsBool("IsWaiting", false);
+		_Blackboard.SetValueAsFloat("WaitTime", 5.0f);
 	}
 
 	public override void _Process(double delta)
