@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://cs830tksy58q3"]
+[gd_scene load_steps=7 format=3 uid="uid://cs830tksy58q3"]
 
 [ext_resource type="Script" path="res://Scripts/GridSystem/GridController.cs" id="1_gdjpn"]
 [ext_resource type="PackedScene" uid="uid://g1sqrg8lqehp" path="res://Prefabs/Wall.tscn" id="2_0wfol"]
 [ext_resource type="PackedScene" uid="uid://c78xdlfgq8qao" path="res://Prefabs/Camera.tscn" id="2_mykf8"]
 [ext_resource type="PackedScene" uid="uid://eanmogiumt0h" path="res://Prefabs/Character.tscn" id="3_huk0k"]
+[ext_resource type="Texture2D" uid="uid://syloc6wqbd6h" path="res://icon.svg" id="5_t1r1m"]
 [ext_resource type="PackedScene" uid="uid://dieimsc1pd4cd" path="res://Prefabs/HUD.tscn" id="5_tqf7l"]
 
 [node name="Node2D" type="Node2D"]
@@ -11,7 +12,6 @@ script = ExtResource("1_gdjpn")
 _GridSizeX = 50
 _GridSizeY = 50
 _CellSize = 31.0
-_ShowGrid = false
 _GridColor = Color(0.152941, 0.337255, 1, 1)
 _DebugWall = ExtResource("2_0wfol")
 
@@ -21,9 +21,15 @@ _MoveSpeed = 250.0
 
 [node name="Character" parent="." instance=ExtResource("3_huk0k")]
 z_index = 100
-position = Vector2(834, 208)
+position = Vector2(783, 207)
+_GeneralMovementSpeed = 75.0
 
 [node name="Position" type="Node2D" parent="."]
-position = Vector2(1033, 554)
+position = Vector2(570, 374)
+
+[node name="Sprite2D" type="Sprite2D" parent="Position"]
+z_index = 100
+scale = Vector2(0.0781247, 0.09375)
+texture = ExtResource("5_t1r1m")
 
 [node name="CanvasLayer" parent="." instance=ExtResource("5_tqf7l")]

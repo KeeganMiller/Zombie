@@ -4,7 +4,7 @@ using Godot;
 
 public class MoveToLocationTask : Task
 {
-    private const float STOPPING_DISTANCE = 0.5f;
+    private const float STOPPING_DISTANCE = 31f;
     public MoveToLocationTask(BehaviorTree tree) : base(tree)
     {
     }
@@ -34,6 +34,7 @@ public class MoveToLocationTask : Task
                     if (self is BaseCharacterController character)
                     {
                         character.Agent?.SetTargetLocation(moveToPos);
+                        character.MoveToLocation();
                         return ETaskState.RUNNING;
                     }
                     else
@@ -43,6 +44,9 @@ public class MoveToLocationTask : Task
                 }
                 else
                 {
+                    if (self is BaseCharacterController character)
+                        character.Agent?.Stop();
+                    
                     bb.SetValueAsBool("HasMoveToLocation", false);
                     bb.SetValueAsVector2("MoveToLocation", Vector2.Zero);
                     return ETaskState.SUCCESS;

@@ -55,19 +55,8 @@ public partial class GridController : Node2D
             for (int x = 0; x < _Grid.GetLength(0); ++x)
             {
                 _Grid[x, y] = new GridNode(this, currentPos, x, y);             // Create a new grid node
-                
-                // Validate the terrain database
-                if (_TerrainDB != null)
-                {
-                    Sprite2D sprite = _TerrainDB.GetSprite("Ground_1");             // Get reference to a sprite
-                    // Validate the sprite and add to the world
-                    if (sprite != null)
-                    {
-                        sprite.Position = currentPos;
-                        this.AddChild(sprite);
-                        _Grid[x, y].SetGroundTile(sprite);
-                    }
-                }
+
+                GenerateGround(x, y, currentPos);
                 
                 // Update position
                 float posX = currentPos.X + _CellSize;                  // Get the next x position
@@ -107,6 +96,22 @@ public partial class GridController : Node2D
     {
         base._Process(delta);
 
+    }
+
+    private void GenerateGround(int x, int y, Vector2 currentPos)
+    {
+        // Validate the terrain database
+        if (_TerrainDB != null)
+        {
+            Sprite2D sprite = _TerrainDB.GetSprite("Ground_1");             // Get reference to a sprite
+            // Validate the sprite and add to the world
+            if (sprite != null)
+            {
+                sprite.Position = currentPos;
+                this.AddChild(sprite);
+                _Grid[x, y].SetGroundTile(sprite);
+            }
+        }
     }
 
     public override void _Draw()

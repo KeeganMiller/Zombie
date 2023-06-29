@@ -45,7 +45,7 @@ public partial class AStar : Node2D
             for (int i = 1; i < openSet.Count; ++i)
             {
                 if (openSet[i].FCost < current.FCost ||
-                    openSet[i].FCost == current.FCost && openSet[i].HCost < current.HCost)
+                    (openSet[i].FCost == current.FCost && openSet[i].HCost < current.HCost))
                 {
                     current = openSet[i];
                 }

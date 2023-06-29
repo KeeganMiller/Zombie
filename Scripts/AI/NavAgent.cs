@@ -1,6 +1,7 @@
 ﻿using Godot;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 public partial class NavAgent : Node2D
 {
@@ -10,10 +11,18 @@ public partial class NavAgent : Node2D
     
     // === Path Finding Settings === //
     [Export] public float StoppingDistance = 0.5f;              // Distance from the final path that we are stopping at
+    [Export] public float PathPointStoppingDistance = 0.3f;
     private List<GridNode> _Path = new List<GridNode>();                    // List of the current path to follow
     public bool HasPath = false;                            // If the agent has a path
     public bool HasReachPath = false;                       // If the agent has reached the final point in the path
     private Vector2 _FinalPosition;                             // Final position the agent is to move to
+    
+    // === CURRENT PATH SETTINGS === //
+    private GridNode _CurrentNode;                          // Reference to the node we are currently on
+    private GridNode _NextNode;                             // Reference to the next node we are moving to
+    
+    // === MISC === //
+    private GridController _Grid;
 
     public event Action _PathComplete; 
     public override void _Ready()
@@ -23,45 +32,40 @@ public partial class NavAgent : Node2D
         _Owner = this.GetParent<BaseCharacterController>();
         _Pathfinding = GetNode<AStar>("/root/AStar");
         
+        
         Callable.From(ActorSetup).CallDeferred();
     }
 
-    public Vector2 GetNextPathPoint()
+    private void UpdatePathNodes()
     {
-        if (HasReachPath)
-            return Vector2.Zero;
-
-        // Get reference to the grid controller, if we can't than zero out the movement
-        GridController grid = GetNode<GameController>("/root/GameController")?.Grid;            
-        if (grid == null)
-            return Vector2.Zero;
-
-        Vector2 currentPos = this.GlobalPosition;                   // Get the current position of the agent
-        GridNode currentNode = grid.GetNodeFromPosition(currentPos);            // Get the current node of the agent
-        // If the current node is not the last, than remove the current node
-        if (currentNode == _Path[0])
-            _Path.RemoveAt(0);
-        // If we still have a path, than get that cell position
-        if (_Path.Count > 0)
+        if (_Path.Count > 0 && _Grid != null)
         {
-            return _Path[0].CellPosition;
-        }
-        else
-        {
-            // Get the distance to the final point
-            float distanceToFinal = currentPos.DistanceTo(_FinalPosition);
-            // If within distance than complete the path
-            if (distanceToFinal >= StoppingDistance)
+            _CurrentNode = _Grid.GetNodeFromPosition(this.GlobalPosition);
+            if (_CurrentNode == _Path[0] && _Path.Count > 1)
             {
-                HasReachPath = true;
-                HasPath = false;
-                _FinalPosition = Vector2.Zero;
-                _PathComplete?.Invoke();
+                _NextNode = _Path[1];
+                GD.Print($"{_Path.Count}");
             }
-            return _FinalPosition;
-        }
+            else
+            {
+                _Path.Insert(0, _CurrentNode);
+                _NextNode = _Path[1];
+            }
 
-        return Vector2.Zero;
+            float distanceTo = this.GlobalPosition.DistanceTo(_NextNode.CellPosition);
+            GD.Print(distanceTo);
+            if (distanceTo < PathPointStoppingDistance)
+            {
+                if (_Path.Count > 1)
+                {
+                    _Path.RemoveAt(0);
+                    _CurrentNode = _Path[0];
+                    if (_Path.Count > 1)
+                        _NextNode = _Path[1];
+                }
+            }
+            
+        }
     }
 
     /// <summary>
@@ -83,6 +87,7 @@ public partial class NavAgent : Node2D
             HasPath = true;
             HasReachPath = false;
             _FinalPosition = target;
+            UpdatePathNodes();
         }
         else
         {  
@@ -94,11 +99,48 @@ public partial class NavAgent : Node2D
         
     }
 
+    public void Stop()
+    {
+        HasPath = false;
+        HasReachPath = true;
+    }
+
     private async void ActorSetup()
     {
         await ToSignal(GetTree(), SceneTree.SignalName.PhysicsFrame);
+        
+        _Grid = GetNode<GameController>("/root/GameController").Grid;
 
         
+    }
+
+    public Vector2 GetMovementDirection()
+    {
+        var velocity = Vector2.Zero;
+        UpdatePathNodes();
+
+        if (!HasPath)
+            return velocity;
+
+
+        if (_CurrentNode != null && _NextNode != null)
+        {
+            if (_NextNode.CellPosition.X > _CurrentNode.CellPosition.X)
+                return new Vector2(1, 0);
+            if (_NextNode.CellPosition.X < _CurrentNode.CellPosition.X)
+                return new Vector2(-1, 0);
+            if (_NextNode.CellPosition.Y > _CurrentNode.CellPosition.Y)
+                return new Vector2(0, 1);
+            if (_NextNode.CellPosition.Y < _CurrentNode.CellPosition.Y)
+                return new Vector2(0, -1);
+        }
+        else
+        {
+            HasReachPath = true;
+            HasPath = false;
+        }
+
+        return velocity;
     }
     
 }

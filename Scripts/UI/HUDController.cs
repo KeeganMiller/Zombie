@@ -23,12 +23,14 @@ public partial class HUDController : CanvasLayer
 			if (buildMode.IsBuildMode)
 			{
 				buildMode.IsBuildMode = false;
+
 				if (_ToggleButton != null)
 					_ToggleButton.TextureNormal = _BuildTexture;
 			}
 			else
 			{
 				buildMode.IsBuildMode = true;
+
 				if (_ToggleButton != null)
 					_ToggleButton.TextureNormal = _PlayTexture;
 			}

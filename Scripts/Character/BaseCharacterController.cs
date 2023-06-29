@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 public partial class BaseCharacterController : CharacterBody2D
 {
@@ -23,6 +24,17 @@ public partial class BaseCharacterController : CharacterBody2D
 	
 	// === MOVEMENT SETTINGS === //
 	[Export] protected float _GeneralMovementSpeed = 100f;
+	
+	// === Character Body === //
+	private Sprite2D _CharacterSprite;						// Reference to the characters sprite
+
+	[ExportGroup("Character Directions")]
+	[Export] private Texture2D _Front;
+	[Export] private Texture2D _Back;
+	[Export] private Texture2D _Left;
+	[Export] private Texture2D _Right;
+
+	private float delta;
 
 	public override void _Ready()
 	{
@@ -31,13 +43,12 @@ public partial class BaseCharacterController : CharacterBody2D
 		_Agent = GetNode<NavAgent>("Agent");
 		_BTree = new SettlerTree(_Blackboard);
 		
-		// DEBUG //
-		_Blackboard.SetValueAsVector2("MoveToLocation", new Vector2(530, 374));
-		_Blackboard.SetValueAsBool("HasMoveToLocation", true);
-		
+
+		_CharacterSprite = GetNode<Sprite2D>("Sprite2D");
+
 		Callable.From(ActorSetup).CallDeferred();
 	}
-
+	
 	protected void CreateBlackboard()
 	{
 		_Blackboard = new Blackboard();
@@ -51,22 +62,24 @@ public partial class BaseCharacterController : CharacterBody2D
 		base._Process(delta);
 		if(_BTree != null)
 			_BTree.Update((float)delta);
+		
+		UpdateCharacterSprite();
 	}
 	
 	
 	public override void _PhysicsProcess(double delta)
 	{
 		base._PhysicsProcess(delta);
+		this.delta = (float)delta;
 		if (!_Agent.HasPath || _Agent.HasReachPath)
 			return;
 
-		Vector2 currentPos = this.GlobalPosition;
-		Vector2 nextPathPoint = _Agent.GetNextPathPoint();
-
-		Vector2 movementVelocity = (nextPathPoint - currentPos).Normalized();
-		movementVelocity *= _GeneralMovementSpeed;
-		this.Velocity = movementVelocity;
 		
+	}
+
+	public void MoveToLocation()
+	{
+		Velocity = _Agent.GetMovementDirection() * _GeneralMovementSpeed;
 		MoveAndSlide();
 	}
 
@@ -75,5 +88,18 @@ public partial class BaseCharacterController : CharacterBody2D
 	protected virtual async void ActorSetup()
 	{
 		await ToSignal(GetTree(), SceneTree.SignalName.PhysicsFrame);
+	}
+
+	protected virtual void UpdateCharacterSprite()
+	{
+		if (this.Velocity.Y > 0)
+			_CharacterSprite.Texture = _Front;
+		if (this.Velocity.Y < 0)
+			_CharacterSprite.Texture = _Back;
+
+		if (this.Velocity.X > 0)
+			_CharacterSprite.Texture = _Right;
+		if (this.Velocity.X < 0)
+			_CharacterSprite.Texture = _Left;
 	}
 }

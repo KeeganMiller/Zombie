@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://dmg2xtdd4mdp7" path="res://Sprites/UI/PlayIcon.png" id="2_sm1p8"]
 
 [node name="CanvasLayer" type="CanvasLayer"]
+layer = 100
 script = ExtResource("1_deyf2")
 _PlayTexture = ExtResource("2_sm1p8")
 _BuildTexture = ExtResource("1_p4tyd")
@@ -19,10 +20,52 @@ texture_normal = ExtResource("1_p4tyd")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="ScrollContainer" type="ScrollContainer" parent="."]
-offset_left = 4.0
-offset_top = 498.0
-offset_right = 1143.0
-offset_bottom = 645.0
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 770.0
+offset_top = 868.0
+offset_right = 1875.0
+offset_bottom = 1062.0
+
+[node name="ColorRect3" type="ColorRect" parent="Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -736.0
+offset_top = 32.0
+offset_right = -1426.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.47451)
+
+[node name="ColorRect4" type="ColorRect" parent="Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -292.0
+offset_top = 35.0
+offset_right = 4.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.47451)
+
+[node name="Walls" type="Control" parent="Control/ColorRect4"]
+anchors_preset = 0
+offset_right = 1404.0
+offset_bottom = 152.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Control/ColorRect4/Walls"]
+layout_mode = 0
+offset_right = 1396.0
+offset_bottom = 152.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/ColorRect4/Walls/ScrollContainer"]
+layout_mode = 2
+alignment = 1
 
 [connection signal="pressed" from="TextureButton" to="." method="OnModeTogglePressed"]

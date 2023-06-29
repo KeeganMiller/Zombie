@@ -37,7 +37,7 @@ public class GridNode
 
 	public override string ToString()
 	{
-		return $"X: {CellIndexX}, Y: {CellIndexY}";
+		return $"Cell(X: {CellIndexX}, Y: {CellIndexY}), (Position {CellPosition})";
 	}
 
 	public void SetGroundTile(Node2D groundTile, bool walkable = true)
