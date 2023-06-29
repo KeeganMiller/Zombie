@@ -14,8 +14,14 @@ public class SettlerTree : BehaviorTree
         {
             new Sequence(this, new List<Task>
             {
+                new IsWaiting(this),
+                new WaitTask(this)
+            }),
+            new Sequence(this, new List<Task>
+            {
                 new MoveToLocationCheck(this),
-                new MoveToLocationTask(this)
+                new MoveToLocationTask(this),
+                new SetWaitTask(this, 2.0f)
             })
         });
     }
