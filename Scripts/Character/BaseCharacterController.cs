@@ -1,7 +1,12 @@
 using Godot;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
+
+public enum EMovementState
+{
+	FOLLOW_PATH = 0,
+	WANDER = 1
+}
 
 public partial class BaseCharacterController : CharacterBody2D
 {
