@@ -1,0 +1,21 @@
+[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://by1vquy263muf"]
+
+[ext_resource type="Texture2D" uid="uid://bcm28ke5qjt2y" path="res://Sprites/GroundTextures/Tileset.png" id="1_4o80h"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3fljy"]
+texture = ExtResource("1_4o80h")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+0:3/0 = 0
+
+[resource]
+tile_size = Vector2i(32, 32)
+sources/0 = SubResource("TileSetAtlasSource_3fljy")

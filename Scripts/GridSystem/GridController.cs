@@ -35,8 +35,9 @@ public partial class GridController : Node2D
         CreateGrid();
         GetNode<GameController>("/root/GameController").Grid = this;
         GetNode<AStar>("/root/AStar").Initialize(this);
-        GetNode<BuildModeController>("/root/BuildModeController").SetPlacingObject(_DebugWall, true);
         GetNode<SettlementController>("/root/SettlementController").IsInGame = true;
+        
+        //GenerateGround();
     }
 
     private void CreateGrid()
@@ -57,8 +58,6 @@ public partial class GridController : Node2D
             {
                 _Grid[x, y] = new GridNode(this, currentPos, x, y);             // Create a new grid node
 
-                GenerateGround(x, y, currentPos);
-                
                 // Update position
                 float posX = currentPos.X + _CellSize;                  // Get the next x position
                 currentPos = new Vector2(posX, currentPos.Y);           // Set the next position
@@ -73,9 +72,6 @@ public partial class GridController : Node2D
             for(int j = 0; j < _Grid.GetLength(0); ++j)
                 AddNeighbors(_Grid[j, i]);
 
-        if(_ShowGrid)
-            QueueRedraw();
-        
     }
 
     private void AddNeighbors(GridNode node)
@@ -99,25 +95,85 @@ public partial class GridController : Node2D
 
     }
 
-    private void GenerateGround(int x, int y, Vector2 currentPos)
+    private void GenerateGround()
     {
         // Validate the terrain database
         if (_TerrainDB != null)
         {
-            Sprite2D sprite = _TerrainDB.GetSprite("Ground_1");             // Get reference to a sprite
-            // Validate the sprite and add to the world
-            if (sprite != null)
+            RandomNumberGenerator rand = new RandomNumberGenerator();
+            rand.Randomize();
+
+            int initialTile = rand.RandiRange(0, 1);
+            string tile = initialTile == 0 ? "Grass" : "Dirt";
+            Sprite2D initialSprite = _TerrainDB.GetSprite(tile);
+            _Grid[0, 0].SetGroundTile(tile, initialSprite);
+            initialSprite.Position = _Grid[0, 0].CellPosition;
+            this.AddChild(initialSprite);
+            
+
+            for (int x = 0; x < _Grid.GetLength(0); ++x)
             {
-                sprite.Position = currentPos;
-                this.AddChild(sprite);
-                _Grid[x, y].SetGroundTile(sprite);
+                for (int y = 0; y < _Grid.GetLength(1); ++y)
+                {
+                    if (x == 0 && y == 0)
+                        continue;
+
+                    string t = DetermineTile(x, y);
+                    Sprite2D sprite = _TerrainDB.GetSprite(t);
+                    if (sprite != null)
+                    {
+                        sprite.Position = _Grid[x, y].CellPosition;
+                        this.AddChild(sprite);
+                        _Grid[x, y].SetGroundTile(t, sprite);
+                    }
+
+                }
             }
         }
+    }
+
+    private string DetermineTile(int x, int y)
+    {
+        int grassCount = 0;
+        int dirtCount = 0;
+        int grassToDirt = 0;
+        int DirtToGrass = 0;
+        
+        for(int dx = -1; dx <= 1; ++dx)
+        {
+            for (int dy = -1; dy <= 1; ++dy)
+            {
+                if (dx == 0 && dy == 0)
+                    continue;
+
+                int neighborX = x + dx;
+                int neighborY = y + dy;
+
+                if (neighborX < 0 || neighborX >= _Grid.GetLength(0))
+                    continue;
+                if (neighborY < 0 || neighborY >= _Grid.GetLength(1))
+                    continue;
+
+                if (_Grid[neighborX, neighborY].GroundTileName == "Grass")
+                    grassCount += 1;
+                else if (_Grid[neighborX, neighborY].GroundTileName == "Dirt")
+                    dirtCount += 1;
+                else if (_Grid[neighborX, neighborY].GroundTileName == "DirtToGrass")
+                    DirtToGrass += 1;
+                else if (_Grid[neighborX, neighborY].GroundTileName == "GrassToDirt")
+                    grassToDirt += 1;
+            }
+        }
+
+        return "";
     }
 
     public override void _Draw()
     {
         base._Ready();
+        if (!_ShowGrid)
+            return;
+        
         if (_Grid != null)
         {
             for (int y = 0; y < _Grid.GetLength(1); ++y)

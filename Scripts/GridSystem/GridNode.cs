@@ -4,7 +4,10 @@ using System.Collections.Generic;
 
 public class GridNode
 {
+	// === REFERENCES === //
 	private GridController _GridRef;					// Reference to the grid
+	
+	// === GRID POSITION === //
 	private Vector2 _CellPosition;						// Reference to the cell position
 	public Vector2 CellPosition => _CellPosition;
 	private int _CellIndexX;							// Reference to the cell X index
@@ -12,7 +15,10 @@ public class GridNode
 	private int _CellIndexY;							// Reference to the cell Y index
 	public int CellIndexY => _CellIndexY;
 
+	// === TERRAIN DATA === //
 	private Node2D _GroundTile;
+	private string _GroundTileName = "";
+	public string GroundTileName => _GroundTileName;
 	private Node2D _PlacedObject;
 
 	public Node2D PlacedObject => _PlacedObject;
@@ -40,8 +46,9 @@ public class GridNode
 		return $"Cell(X: {CellIndexX}, Y: {CellIndexY}), (Position {CellPosition})";
 	}
 
-	public void SetGroundTile(Node2D groundTile, bool walkable = true)
+	public void SetGroundTile(string tileName, Node2D groundTile, bool walkable = true)
 	{
+		_GroundTileName = tileName;
 		IsWalkable = walkable;
 		_GroundTile = groundTile;
 	}

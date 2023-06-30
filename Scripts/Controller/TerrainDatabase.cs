@@ -9,7 +9,9 @@ public partial class TerrainDatabase : Node2D
 
     [Export] private PackedScene GroundTile;
 
-    [Export] private Texture2D _Ground_1;
+    [Export] private Texture2D Dirt;
+    [Export] private Texture2D DirtToGrass;
+    [Export] private Texture2D Grass;
 
     public Sprite2D GetSprite(string textureName)
     {
@@ -18,8 +20,17 @@ public partial class TerrainDatabase : Node2D
         {
             switch (textureName)
             {
-                case "Ground_1":
-                    tile.Texture = _Ground_1;
+                case "Dirt":
+                    tile.Texture = Dirt;
+                    break;
+                case "DirtToGrass":
+                    tile.Texture = DirtToGrass;
+                    break;
+                case "GrassToDirt":
+                    tile.Texture = DirtToGrass;
+                    break;
+                case "Grass":
+                    tile.Texture = Grass;
                     break;
             }
         }
