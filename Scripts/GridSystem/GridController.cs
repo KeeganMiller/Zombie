@@ -36,6 +36,7 @@ public partial class GridController : Node2D
         GetNode<GameController>("/root/GameController").Grid = this;
         GetNode<AStar>("/root/AStar").Initialize(this);
         GetNode<BuildModeController>("/root/BuildModeController").SetPlacingObject(_DebugWall, true);
+        GetNode<SettlementController>("/root/SettlementController").IsInGame = true;
     }
 
     private void CreateGrid()
