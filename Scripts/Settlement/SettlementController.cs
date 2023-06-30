@@ -18,6 +18,7 @@ public class SettlementController : Node2D
     public override void _Ready()
     {
         base._Ready();
+        _Resources = new SettlementResources();
         _ResourceReductionTimer = new Timer("ResourceReductionTimer", 1.0f, true);
         _ResourceReductionTimer.AddAction(OnResourceTimerComplete);
     }
