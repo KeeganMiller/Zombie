@@ -8,6 +8,31 @@ public class SettlementController : Node2D
     private int _MaxSettlers = 6;               // How many settlers 
     private List<BuildingController> _Buildings = new List<BuildingController>();               // Reference all the buildings in the settlement
 
+    private SettlementResources _Resources;
+    public SettlementResources Resources => _Resources;
+
+    private Timer _ResourceReductionTimer;
+
+    public bool IsInGame = false;
+
+    public override void _Ready()
+    {
+        base._Ready();
+        _ResourceReductionTimer = new Timer("ResourceReductionTimer", 1.0f, true);
+        _ResourceReductionTimer.AddAction(OnResourceTimerComplete);
+    }
+
+    public override void _Process(double delta)
+    {
+        if (!IsInGame)
+            return;
+        
+        base._Process(delta);
+        
+        if(_ResourceReductionTimer != null)
+            _ResourceReductionTimer.Update((float)delta);
+        
+    }
 
     /// <summary>
     /// Adds a new settler to the settlement
@@ -49,5 +74,19 @@ public class SettlementController : Node2D
     {
         if (_Buildings.Contains(building))
             _Buildings.Remove(building);
+    }
+
+    private void OnResourceTimerComplete()
+    {
+        float foodReduction = 0f;
+        float waterReduction = 0f;
+        foreach (var settler in _Settlers)
+        {
+            foodReduction += settler.FoodPerSecond;
+            waterReduction += settler.WaterPerSecond;
+        }
+        
+        _Resources.ReduceFood(foodReduction);
+        _Resources.ReduceWater(waterReduction);
     }
 }
