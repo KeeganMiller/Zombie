@@ -38,4 +38,16 @@ public class SettlementController : Node2D
 
         return false;
     }
+
+    public void AddBuilding(BuildingController building)
+    {
+        if(_Buildings.Contains(building))
+            _Buildings.Add(building);
+    }
+
+    public void RemoveBuilding(BuildingController building)
+    {
+        if (_Buildings.Contains(building))
+            _Buildings.Remove(building);
+    }
 }
