@@ -2,13 +2,13 @@
 using System;
 using System.Collections.Generic;
 
-public class SettlerController : BaseCharacterController
+public partial class SettlerController : BaseCharacterController
 {
     [ExportGroup("Resource Usage")] 
     [Export] private float _FoodPerSecond;
-    private float _FoodModifier;                    // How much they save in food
+    private float _FoodModifier = 1.0f;                    // How much they save in food
     [Export] private float _WaterPerSecond;
-    private float _WaterModifier;                   // How water they save
+    private float _WaterModifier = 1.0f;                   // How water they save
 
     public float FoodPerSecond
     {
