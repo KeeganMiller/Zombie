@@ -22,6 +22,7 @@ AStar="*res://Scripts/GridSystem/AStar.cs"
 Ground="*res://Prefabs/ground.tscn"
 NameDatabase="*res://Scripts/Controller/NameDatabase.cs"
 BuildModeController="*res://Prefabs/BuildMode.tscn"
+SettlementController="*res://Scripts/Settlement/SettlementController.cs"
 
 [display]
 
