@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://eanmogiumt0h"]
 
-[ext_resource type="Script" path="res://Scripts/Character/BaseCharacterController.cs" id="1_ftb4f"]
+[ext_resource type="Script" path="res://Scripts/Character/SettlerController.cs" id="1_uxeto"]
 [ext_resource type="Texture2D" uid="uid://cintgueaawxcd" path="res://Sprites/Characters/BaseCharacter/CharacterFront.png" id="2_607tf"]
 [ext_resource type="Script" path="res://Scripts/AI/NavAgent.cs" id="3_gakqx"]
 [ext_resource type="Texture2D" uid="uid://ct1yno548owia" path="res://Sprites/Characters/BaseCharacter/CharacterBack.png" id="3_kglin"]
@@ -13,7 +13,9 @@ height = 82.6667
 
 [node name="Character" type="CharacterBody2D"]
 scale = Vector2(0.3, 0.3)
-script = ExtResource("1_ftb4f")
+script = ExtResource("1_uxeto")
+_FoodPerSecond = 3.0
+_WaterPerSecond = 3.0
 _Front = ExtResource("2_607tf")
 _Back = ExtResource("3_kglin")
 _Left = ExtResource("4_tmv2h")
