@@ -33,7 +33,6 @@ public partial class SettlementController : Node2D
         if(_ResourceReductionTimer != null)
             _ResourceReductionTimer.Update((float)delta);
         
-        GD.Print($"MinFood: {_Resources.MinFood}, MinWater: {_Resources.MinWater}");
         
     }
 
