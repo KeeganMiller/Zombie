@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://cs830tksy58q3"]
+[gd_scene load_steps=9 format=3 uid="uid://cs830tksy58q3"]
 
 [ext_resource type="Script" path="res://Scripts/GridSystem/GridController.cs" id="1_gdjpn"]
 [ext_resource type="PackedScene" uid="uid://g1sqrg8lqehp" path="res://Prefabs/Wall.tscn" id="2_0wfol"]
 [ext_resource type="PackedScene" uid="uid://c78xdlfgq8qao" path="res://Prefabs/Camera.tscn" id="2_mykf8"]
 [ext_resource type="PackedScene" uid="uid://eanmogiumt0h" path="res://Prefabs/Character.tscn" id="3_huk0k"]
+[ext_resource type="Script" path="res://Scripts/Controller/DebugController.cs" id="4_xt451"]
 [ext_resource type="Texture2D" uid="uid://syloc6wqbd6h" path="res://icon.svg" id="5_t1r1m"]
 [ext_resource type="PackedScene" uid="uid://dieimsc1pd4cd" path="res://Prefabs/HUD.tscn" id="5_tqf7l"]
 [ext_resource type="Script" path="res://Scripts/AI/PathController.cs" id="7_a0nkh"]
@@ -19,6 +20,12 @@ _DebugWall = ExtResource("2_0wfol")
 [node name="Camera" parent="." instance=ExtResource("2_mykf8")]
 position = Vector2(575, 322)
 _MoveSpeed = 250.0
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(783, 207)
+scale = Vector2(0.3, 0.3)
+script = ExtResource("4_xt451")
+_DebugSettler = NodePath("../Character")
 
 [node name="Character" parent="." instance=ExtResource("3_huk0k")]
 z_index = 100
