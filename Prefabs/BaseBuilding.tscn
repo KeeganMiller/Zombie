@@ -1,6 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://c5ruktjf52dyr"]
+[gd_scene load_steps=3 format=3 uid="uid://c5ruktjf52dyr"]
 
-[ext_resource type="Script" path="res://Scripts/Building/BuildingController.cs" id="1_iv1ju"]
+[ext_resource type="Script" path="res://Scripts/Building/Diner.cs" id="1_7a522"]
+[ext_resource type="Texture2D" uid="uid://dd854imkcddki" path="res://Sprites/Buildings/Diner.png" id="2_l13qm"]
 
 [node name="Node2D" type="Node2D"]
-script = ExtResource("1_iv1ju")
+script = ExtResource("1_7a522")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_l13qm")
+offset = Vector2(64, 80)
