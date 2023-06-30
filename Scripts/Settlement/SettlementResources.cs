@@ -72,4 +72,11 @@ public class SettlementResources
             _CurrentPower = 0f;
     }
 
+    public void IncreaseMinFood(float amt) => _MinFood += amt;
+    public void DecreaseMinFood(float amt) => _MinFood -= amt;
+    public void IncreaseMinWater(float amt) => _MinWater += amt;
+    public void DecreaseMinWater(float amt) => _MinWater -= amt;
+    public void IncreaseMinPower(float amt) => _MinPower += amt;
+    public void DecreaseMinPower(float amt) => _MinPower -= amt;
+
 }
