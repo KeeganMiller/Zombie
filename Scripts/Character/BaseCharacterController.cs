@@ -54,8 +54,7 @@ public partial class BaseCharacterController : CharacterBody2D
 		CreateBlackboard();
 		_FollowPath = GetNode<PathController>(_PathControllerNode);
 		_Agent = GetNode<NavAgent>("Agent");
-		_BTree = new SettlerTree(_Blackboard, this);
-		
+
 
 		_CharacterSprite = GetNode<Sprite2D>("Sprite2D");
 

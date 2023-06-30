@@ -23,6 +23,13 @@ public class SettlerController : BaseCharacterController
             return _WaterPerSecond * _WaterModifier;
         }
     }
+
+    public override void _Ready()
+    {
+        base._Ready();
+        _BTree = new SettlerTree(_Blackboard, this);
+    }
+    
     protected override void CreateBlackboard()
     {
         base.CreateBlackboard();
