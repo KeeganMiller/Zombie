@@ -24,10 +24,17 @@ public partial class BaseCharacterController : CharacterBody2D
 	protected Blackboard _Blackboard;
 	protected NavAgent _Agent;
 	protected BehaviorTree _BTree;
-	public NavAgent Agent => _Agent;
 	public BehaviorTree BTree => _BTree;
+	public NavAgent Agent => _Agent;
 	
-	// === MOVEMENT SETTINGS === //
+	// === FOLLOW PATH SETTINGS === //
+	[Export] protected NodePath _PathControllerNode;
+	private PathController _FollowPath;
+	public PathController FollowPath => _FollowPath;
+	[Export] public bool CirclePath;
+	public EFollowDirection FollowDirection = EFollowDirection.FORWARDS;
+
+		// ;=== MOVEMENT SETTINGS === //
 	[Export] protected float _GeneralMovementSpeed = 100f;
 	
 	// === Character Body === //
@@ -45,8 +52,9 @@ public partial class BaseCharacterController : CharacterBody2D
 	{
 		base._Ready();
 		CreateBlackboard();
+		_FollowPath = GetNode<PathController>(_PathControllerNode);
 		_Agent = GetNode<NavAgent>("Agent");
-		_BTree = new SettlerTree(_Blackboard);
+		_BTree = new SettlerTree(_Blackboard, this);
 		
 
 		_CharacterSprite = GetNode<Sprite2D>("Sprite2D");
@@ -61,6 +69,8 @@ public partial class BaseCharacterController : CharacterBody2D
 		_Blackboard.SetValueAsBool("HasMoveToLocation", false);
 		_Blackboard.SetValueAsVector2("MoveToLocation", Vector2.Zero);
 		_Blackboard.SetValueAsInt("MovementState", (int)EMovementState.FOLLOW_PATH);
+		_Blackboard.SetValueAsInt("CurrentPathIndex", 0);
+		_Blackboard.SetValueAsBool("HasPathPoint", false);
 		_Blackboard.SetValueAsBool("IsWaiting", false);
 		_Blackboard.SetValueAsFloat("WaitTime", 5.0f);
 	}

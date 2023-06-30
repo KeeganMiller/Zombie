@@ -1,7 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://g1sqrg8lqehp"]
+[gd_scene load_steps=7 format=3 uid="uid://g1sqrg8lqehp"]
 
 [ext_resource type="Texture2D" uid="uid://c0jsudmh4tvxg" path="res://Sprites/Walls/Wall.png" id="1_40n6d"]
-[ext_resource type="Script" path="res://Scripts/Building/WallController.cs" id="1_a5sqf"]
 [ext_resource type="Texture2D" uid="uid://bvgme6tjsrv4u" path="res://Sprites/Walls/WallBottomCornerLeft.png" id="2_cchse"]
 [ext_resource type="Texture2D" uid="uid://dybe6sy14fvj3" path="res://Sprites/Walls/WallBottomCornerRight.png" id="3_krhjg"]
 [ext_resource type="Texture2D" uid="uid://dkgpfbkvo32tb" path="res://Sprites/Walls/Side.png" id="3_u708b"]
@@ -10,7 +9,6 @@
 
 [node name="Node2D" type="Node2D"]
 scale = Vector2(0.031, 0.031)
-script = ExtResource("1_a5sqf")
 
 [node name="Straight" type="Sprite2D" parent="."]
 texture = ExtResource("1_40n6d")

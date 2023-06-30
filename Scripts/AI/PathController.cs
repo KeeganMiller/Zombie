@@ -6,9 +6,7 @@ public partial class PathController : Node2D
 {
     private List<Vector2> _PathPoints = new List<Vector2>();                    // Reference to the points
     public int GetPathCount => _PathPoints.Count;                               // Reference to the amount of points in the path
-
-    [Export] private bool _Circle;                  // If we circle the path, or move back and forth
-
+    
     public override void _Ready()
     {
         base._Ready();
