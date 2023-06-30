@@ -48,6 +48,8 @@ public class SettlementController : Node2D
             return false;
         
         _Settlers.Add(settler);
+        _Resources.IncreaseMinFood(settler.FoodPerSecond);
+        _Resources.IncreaseMinWater(settler.WaterPerSecond);
         return true;
     }
 
@@ -61,6 +63,8 @@ public class SettlementController : Node2D
         if (_Settlers.Contains(settler))
         {
             _Settlers.Remove(settler);
+            _Resources.DecreaseMinFood(settler.FoodPerSecond);
+            _Resources.DecreaseMinWater(settler.WaterPerSecond);
             return true;
         }
 
