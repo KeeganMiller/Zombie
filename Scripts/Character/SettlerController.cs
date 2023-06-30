@@ -1,6 +1,6 @@
 ﻿using Godot;
-
-namespace Zombie.Scripts.Character;
+using System;
+using System.Collections.Generic;
 
 public class SettlerController : BaseCharacterController
 {
