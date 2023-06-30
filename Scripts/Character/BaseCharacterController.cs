@@ -62,17 +62,13 @@ public partial class BaseCharacterController : CharacterBody2D
 		Callable.From(ActorSetup).CallDeferred();
 	}
 	
-	protected void CreateBlackboard()
+	protected virtual void CreateBlackboard()
 	{
 		_Blackboard = new Blackboard();
 		_Blackboard.SetValueAsNode("Self", this);
 		_Blackboard.SetValueAsBool("HasMoveToLocation", false);
 		_Blackboard.SetValueAsVector2("MoveToLocation", Vector2.Zero);
-		_Blackboard.SetValueAsInt("MovementState", (int)EMovementState.FOLLOW_PATH);
-		_Blackboard.SetValueAsInt("CurrentPathIndex", 0);
-		_Blackboard.SetValueAsBool("HasPathPoint", false);
-		_Blackboard.SetValueAsBool("IsWaiting", false);
-		_Blackboard.SetValueAsFloat("WaitTime", 5.0f);
+		
 	}
 
 	public override void _Process(double delta)
