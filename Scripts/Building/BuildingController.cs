@@ -21,7 +21,7 @@ public partial class BuildingController : Node2D
     [Export] protected int _BuildingSizeX;
     [Export] protected int _BuildingSizeY;
     [Export] protected int _DoorIndex;
-    [Export] protected int[] _WalkableTiles;
+    [Export] protected Vector2[] _NonWalkableTiles;
 
     public int BuildingSizeX => _BuildingSizeX;
     public int BuildingSizeY => _BuildingSizeY;
