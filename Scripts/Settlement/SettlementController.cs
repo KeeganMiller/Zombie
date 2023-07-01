@@ -72,14 +72,22 @@ public partial class SettlementController : Node2D
 
     public void AddBuilding(BuildingController building)
     {
-        if(_Buildings.Contains(building))
+        if (_Buildings.Contains(building))
+        {
             _Buildings.Add(building);
+            _Resources.IncreaseMinPower(building.PowerUsage);
+        }
+            
     }
 
     public void RemoveBuilding(BuildingController building)
     {
         if (_Buildings.Contains(building))
+        {
             _Buildings.Remove(building);
+            _Resources.DecreaseMinPower(building.PowerUsage);
+        }
+            
     }
 
     private void OnResourceTimerComplete()

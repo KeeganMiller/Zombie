@@ -32,6 +32,8 @@ public partial class BuildingController : Node2D
     [Export] protected float _BasePowerUsage;               // How much this building uses in power per second
     [Export] protected float _PowerSavingModifier = 1.0f;               // Adjust how much power is saved on this room
 
+    public float PowerUsage => _BasePowerUsage * _PowerSavingModifier;              // Get how much power is being used by this building
+
     [ExportGroup("Resource Generation")] 
     [Export] protected bool _GeneratesResource = true;                    // If this building is generating resources
     [Export] protected EResourceType _ResourceType = EResourceType.OTHER;             // Type of resource being generated
