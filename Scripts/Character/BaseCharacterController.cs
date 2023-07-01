@@ -52,7 +52,9 @@ public partial class BaseCharacterController : CharacterBody2D
 	{
 		base._Ready();
 		CreateBlackboard();
-		_FollowPath = GetNode<PathController>(_PathControllerNode);
+		if(_PathControllerNode != null)
+			_FollowPath = GetNode<PathController>(_PathControllerNode);
+		
 		_Agent = GetNode<NavAgent>("Agent");
 
 

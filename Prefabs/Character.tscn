@@ -12,6 +12,7 @@ radius = 16.6667
 height = 82.6667
 
 [node name="Character" type="CharacterBody2D"]
+z_index = 100
 scale = Vector2(0.3, 0.3)
 script = ExtResource("1_uxeto")
 _FoodPerSecond = 3.0
@@ -22,6 +23,7 @@ _Left = ExtResource("4_tmv2h")
 _Right = ExtResource("5_38tnm")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 100
 texture = ExtResource("2_607tf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

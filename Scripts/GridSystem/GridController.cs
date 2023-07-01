@@ -36,6 +36,7 @@ public partial class GridController : Node2D
         GetNode<GameController>("/root/GameController").Grid = this;
         GetNode<AStar>("/root/AStar").Initialize(this);
         GetNode<SettlementController>("/root/SettlementController").IsInGame = true;
+        GetNode<BuildModeController>("/root/BuildModeController").SetPlacingObject(_DebugWall);
         
         //GenerateGround();
     }
@@ -88,6 +89,8 @@ public partial class GridController : Node2D
         if(y < (_GridSizeY - 1))
             node._Neighbors.Add(_Grid[x, y + 1]);
     }
+
+    public GridNode GetGridNode(int x, int y) => _Grid[x, y];
     
     public override void _Process(double delta)
     {
@@ -198,9 +201,9 @@ public partial class GridController : Node2D
             for (int x = 0; x < _Grid.GetLength(1); ++x)
             {
                 Vector2 nodePosition = _Grid[x, y].CellPosition;
-                if (position.X > nodePosition.X && position.X < (nodePosition.X + CellSize))
+                if (position.X >= nodePosition.X && position.X < (nodePosition.X + CellSize))
                 {
-                    if (position.Y > nodePosition.Y && position.Y < (nodePosition.Y + CellSize))
+                    if (position.Y >= nodePosition.Y && position.Y < (nodePosition.Y + CellSize))
                     {
                         return _Grid[x, y];
                     }

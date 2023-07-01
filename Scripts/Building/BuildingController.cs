@@ -39,10 +39,18 @@ public partial class BuildingController : Node2D
     [Export] protected float _BaseResourceWaitTime;
     [Export] protected float _ResourceSpeedModifier = 1.0f;               // How much faster the timer is 
     private Timer _ResourceTimer;
+    
+    // === DOOR === //
+    [ExportGroup("Door Settings")]
+    [Export] private NodePath _AnimPlayerPath;
+    private AnimationPlayer _AnimPlayer;
+    private bool _IsOpen = false;
 
     public override void _Ready()
     {
         base._Ready();
+
+        _AnimPlayer = GetNode<AnimationPlayer>(_AnimPlayerPath);
 
         _ResourceTimer = new Timer($"{_BuildingName} - ResourceTimer", (_BaseResourceWaitTime * _ResourceSpeedModifier),
             false);
@@ -55,6 +63,9 @@ public partial class BuildingController : Node2D
         // Update the resource timer
         if(_ResourceTimer != null)
             _ResourceTimer.Update((float)delta);
+        
+        if(Input.IsActionPressed("MoveUp"))
+            OnCharacterEnter();
     }
 
     protected virtual void OnResourceComplete()
@@ -70,6 +81,34 @@ public partial class BuildingController : Node2D
     public void OnCollectResource()
     {
         
+    }
+
+    public void OnCharacterEnter()
+    {
+        if (_AnimPlayer == null)
+            return;
+
+        if (_IsOpen)
+        {
+            _IsOpen = false;
+            _AnimPlayer.PlayBackwards("DoorAnimation");
+        }
+        else
+        {
+            _IsOpen = true;
+            _AnimPlayer.Play("DoorAnimation");
+        }
+    }
+
+    public bool _IsCellWalkable(int x, int y)
+    {
+        foreach (var cell in _NonWalkableTiles)
+        {
+            if (cell.X == x && cell.Y == y)
+                return false;
+        }
+
+        return true;
     }
 
 

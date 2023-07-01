@@ -26,6 +26,15 @@ public partial class BuildModeController : Node2D
             Vector2 mousePos = GetGlobalMousePosition();
             GridNode node = GetNode<GameController>("/root/GameController")?.Grid.GetNodeFromPosition(mousePos);
             SetPlacingObjectPosition(node);
+
+            if (Input.IsActionJustPressed("LeftMouseClicked"))
+            {
+                if (_PlacingObject is BuildingController building)
+                {
+                    UpdateGridMap(building);
+                }
+                _PlacingObject = null;
+            }
         }
     }
 
@@ -50,6 +59,36 @@ public partial class BuildModeController : Node2D
                 _LastPlacedObject = node;
             else
                 _LastPlacedObject = null;
+        }
+    }
+
+    private void UpdateGridMap(BuildingController building)
+    {
+        if (building != null)
+        {
+            GridController grid = GetNode<GameController>("/root/GameController").Grid;
+            int CellX = building.BuildingSizeX;
+            int CellY = building.BuildingSizeY;
+            Vector2 buildingPosition = building.GlobalPosition;
+            GridNode placedOverNode = grid.GetNodeFromPosition(buildingPosition);
+            if (placedOverNode != null)
+            {
+                for (int y = 0; y < CellY; ++y)
+                {
+                    for (int x = 0; x < CellX; ++x)
+                    {
+                        // Deteremine the cell position to update
+                        int nextCellX = placedOverNode.CellIndexX + x;
+                        int nextCellY = placedOverNode.CellIndexY + y;
+                        // Update the grid cell
+                        grid.Grid[nextCellX, nextCellY].SetPlacedObject(building, building._IsCellWalkable(x, y));
+                    }
+                }
+            }
+            else
+            {
+                GD.PrintErr("Failed to get node");
+            }
         }
     }
 }

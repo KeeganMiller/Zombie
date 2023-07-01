@@ -1,8 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://c5ruktjf52dyr"]
+[gd_scene load_steps=6 format=3 uid="uid://ce7trnctf2okf"]
 
-[ext_resource type="Script" path="res://Scripts/Building/Diner.cs" id="1_7a522"]
-[ext_resource type="Texture2D" uid="uid://dd854imkcddki" path="res://Sprites/Buildings/Diner.png" id="2_l13qm"]
-[ext_resource type="Texture2D" uid="uid://86tk4k3lcwsp" path="res://Sprites/Buildings/Door.png" id="3_e8uw7"]
+[ext_resource type="Script" path="res://Scripts/Building/Diner.cs" id="1_vcun5"]
+[ext_resource type="Texture2D" uid="uid://dd854imkcddki" path="res://Sprites/Buildings/Diner.png" id="2_y0rir"]
+[ext_resource type="Texture2D" uid="uid://86tk4k3lcwsp" path="res://Sprites/Buildings/Door.png" id="3_1xay6"]
 
 [sub_resource type="Animation" id="Animation_hht0q"]
 resource_name = "DoorAnimation"
@@ -38,24 +38,26 @@ _data = {
 }
 
 [node name="Node2D" type="Node2D"]
-script = ExtResource("1_7a522")
+script = ExtResource("1_vcun5")
 _BuildingSizeX = 8
 _BuildingSizeY = 10
 _NonWalkableTiles = PackedVector2Array(0, 0, 0, 1, 0, 2, 0, 3, 0, 6, 0, 7, 0, 8, 0, 9, 1, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6, 0, 7, 0, 7, 1, 7, 2, 7, 3, 7, 4, 7, 5, 7, 6, 7, 7, 7, 8, 9, 0, 9, 1, 9, 2, 9, 3, 9, 4, 9, 5, 9, 6, 9, 7)
+_AnimPlayerPath = NodePath("AnimationPlayer")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_l13qm")
+z_index = -1
+texture = ExtResource("2_y0rir")
 offset = Vector2(64, 80)
 
 [node name="Door_1" type="Sprite2D" parent="."]
 position = Vector2(13, 64)
 rotation = 3.14159
-texture = ExtResource("3_e8uw7")
+texture = ExtResource("3_1xay6")
 offset = Vector2(1, -8)
 
 [node name="Door_2" type="Sprite2D" parent="."]
 position = Vector2(12, 96)
-texture = ExtResource("3_e8uw7")
+texture = ExtResource("3_1xay6")
 offset = Vector2(1, -8)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
