@@ -16,13 +16,5 @@ public partial class DebugController : Node2D
 
     public override void _Process(double delta)
     {
-        if (!GetNode<BuildModeController>("/root/BuildModeController").IsBuildMode)
-        {
-            if (Input.IsActionJustPressed("LeftMouseClicked"))
-            {
-                settler.GetBlackboard().SetValueAsBool("HasMoveToLocation", true);
-                settler.GetBlackboard().SetValueAsVector2("MoveToLocation", GetGlobalMousePosition());
-            }
-        }
     }
 }
