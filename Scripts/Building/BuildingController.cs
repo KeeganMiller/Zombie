@@ -30,7 +30,7 @@ public partial class BuildingController : Node2D
     [ExportGroup("Power Settings")] 
     [Export] protected bool _RequiresPower;                   // If this building requires power or not
     [Export] protected float _BasePowerUsage;               // How much this building uses in power per second
-    [Export] protected float _PowerSavingModifier = 1.0f;               // Adjust how much power is saved on this room
+    [Export] protected float _PowerSavingModifier = 1.0f;               // Adjust how much power is saved on this room<
 
     public float PowerUsage => _BasePowerUsage * _PowerSavingModifier;              // Get how much power is being used by this building
 
@@ -65,9 +65,6 @@ public partial class BuildingController : Node2D
         // Update the resource timer
         if(_ResourceTimer != null)
             _ResourceTimer.Update((float)delta);
-        
-        if(Input.IsActionPressed("MoveUp"))
-            OnCharacterEnter();
     }
 
     protected virtual void OnResourceComplete()

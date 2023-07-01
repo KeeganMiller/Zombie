@@ -8,6 +8,8 @@ public partial class HUDController : CanvasLayer
 	[Export] private Texture2D _BuildTexture;
 	[Export] private NodePath _TogglePath;
 
+	[Export] private Control _BuildingUI;
+
 	private TextureButton _ToggleButton;
 
 	public override void _Ready()
@@ -26,6 +28,9 @@ public partial class HUDController : CanvasLayer
 
 				if (_ToggleButton != null)
 					_ToggleButton.TextureNormal = _BuildTexture;
+
+				if (_BuildingUI != null)
+					_BuildingUI.Visible = false;
 			}
 			else
 			{
@@ -33,6 +38,10 @@ public partial class HUDController : CanvasLayer
 
 				if (_ToggleButton != null)
 					_ToggleButton.TextureNormal = _PlayTexture;
+
+
+				if (_BuildingUI != null)
+					_BuildingUI.Visible = true;
 			}
 		}
 	}

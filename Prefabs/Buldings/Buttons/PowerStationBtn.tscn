@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://bibg46f3lskbx"]
+
+[ext_resource type="Script" path="res://Scripts/UI/BuildingObject.cs" id="2_ur8ph"]
+[ext_resource type="PackedScene" uid="uid://vgfwpehtpc12" path="res://Prefabs/Buldings/PowerStation.tscn" id="3_i6rmx"]
+
+[node name="Button" type="Button"]
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Power Station"
+script = ExtResource("2_ur8ph")
+_BuildingObject = ExtResource("3_i6rmx")
+Cost = 100
+
+[connection signal="pressed" from="." to="." method="OnClickObject"]
